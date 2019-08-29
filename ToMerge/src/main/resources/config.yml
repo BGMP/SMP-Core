@@ -1,0 +1,35 @@
+WelcomeMOTD:
+- '&6&lBraeh Network &7- &f&lBraeh.comNEWLINE&d» &6&lHCF&7, &6&lPRACTICE&7, &6&lAVICUS &7(Join now!)'
+- '&6&lBraeh Network &7- &f&lBraeh.comNEWLINE&d» &6&lHCF&7, &6&lPRACTICE&7, &6&lAVICUS &7(Join now!)'
+MaintenanceMOTD:
+- '&6&lBraeh Network &7- &f&lBraeh.comNEWLINE&d» &6&lHCF&7, &6&lPRACTICE&7, &6&lAVICUS &7(Whitelisted!)'
+- '&6&lBraeh Network &7- &f&lBraeh.comNEWLINE&d» &6&lHCF&7, &6&lPRACTICE&7, &6&lAVICUS &7(Whitelisted!)'
+KickMessage: '&6&lBraeh Network &7- &6&lSoon...NEWLINE&aPlease visit &fBraeh.com &afor more info.'
+BroadcastTime:
+- 1
+- 2
+- 3
+- 4
+- 5
+- 10
+- 15
+- 30
+- 60
+BroadcastSecondsMessage: '&4Maintenance Mode In %t Seconds!'
+BroadcastSecondMessage: '&4Maintenance Mode In %t Second!'
+BroadcastMinuteMessage: '&4Maintenance Mode In %t Minute!'
+BroadcastOnMaintenanceEnableMessage: '&4Server Is Now In Maintenance Mode'
+BroadcastOnMaintenanceDisableMessage: '&bServer Is No Longer In Maintenance Mode'
+enabled: true
+
+BROADCAST:
+  STRING: '&r'
+SCAB:
+  TextColor: f
+AB:
+  Enabled: true
+  Mensajes:
+  - 'Follow us on Twitter &b@BraehNetwork'
+  - 'Join us at Discord &bhttps://discord.me/Braeh'
+  - '&5Highest staff: &6Proddyy&8, &6Passively&8.'
+  Interval: 5
