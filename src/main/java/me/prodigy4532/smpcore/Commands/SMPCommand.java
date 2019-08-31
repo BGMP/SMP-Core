@@ -26,7 +26,6 @@ public class SMPCommand {
     public static void add(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
         SMP.getWhitelist.addPlayer(sender, offlinePlayer);
-        sender.sendMessage(ChatColor.GREEN + "Added " + ChatColor.DARK_AQUA + offlinePlayer.getName() + ChatColor.GREEN + " to the whitelist!");
     }
 
     @Command(
@@ -41,7 +40,6 @@ public class SMPCommand {
     public static void remove(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
         SMP.getWhitelist.removePlayer(sender, offlinePlayer);
-        sender.sendMessage(ChatColor.RED + "Removed " + ChatColor.DARK_AQUA + offlinePlayer.getName() + ChatColor.RED + " from the whitelist!");
     }
 
     @Command(

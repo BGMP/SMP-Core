@@ -3,6 +3,7 @@ package me.prodigy4532.smpcore.Whitelist;
 import me.prodigy4532.smpcore.SMP;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -46,6 +47,7 @@ public class WhitelistObject {
             newWhitelisted.add(player.getUniqueId().toString());
             SMP.getPlugin.getConfig().set("whitelist.white-listed", newWhitelisted);
             SMP.getPlugin.saveConfig();
+            sender.sendMessage(ChatColor.RED + "Removed " + ChatColor.DARK_AQUA + player.getName() + ChatColor.RED + " from the whitelist!");
         } else sender.sendMessage(ChatConstant.ALREADY_IN_WHITELIST.formatAsException());
     }
 
@@ -56,6 +58,7 @@ public class WhitelistObject {
             newWhitelisted.remove(player.getUniqueId().toString());
             SMP.getPlugin.getConfig().set("whitelist.white-listed", newWhitelisted);
             SMP.getPlugin.saveConfig();
+            sender.sendMessage(ChatColor.GREEN + "Added " + ChatColor.DARK_AQUA + player.getName() + ChatColor.GREEN + " to the whitelist!");
         } else sender.sendMessage(ChatConstant.NOT_WHITELISTED.formatAsException());
     }
 
