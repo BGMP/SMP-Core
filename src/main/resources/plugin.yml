@@ -1,7 +1,8 @@
 name: SMP-Core
 version: ${project.version}
 main: me.prodigy4532.smpcore.SMP
-api-version: 1.13
+api-version: 1.14
 authors: [BGMP, Prodigy4532]
-description: SMP Core for Gen Reamls
+depend: [LuckPerms]
+description: SMPCommand Core for Gen Reamls
 website: genrealms.net

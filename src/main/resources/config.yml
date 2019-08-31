@@ -1,0 +1,8 @@
+messages:
+  join: "%player% has joined the server!"
+  leave: "%player% has left the server!"
+whitelist:
+  enabled: true
+  message: "&cYou are not whitelisted!"
+  white-listed:
+    - 2cef6d05-ec9a-44b3-bedc-53359c68ae65
