@@ -8,7 +8,6 @@ import me.prodigy4532.smpcore.SMP;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
