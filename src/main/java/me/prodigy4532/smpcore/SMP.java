@@ -69,7 +69,7 @@ public final class SMP extends JavaPlugin {
         this.commandRegistry = new CommandsManagerRegistration(this, this.commands);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMPCommand-Core " + ChatColor.WHITE + ">> " + "v" + plugin.getVersion() + " >> " + ChatColor.GREEN + "Enabled");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + ">> " + "v" + plugin.getVersion() + " >> " + ChatColor.GREEN + "Enabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
 
         registerEvents();
@@ -79,7 +79,7 @@ public final class SMP extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMPCommand-Core " + ChatColor.WHITE + "<< " + "v" + plugin.getVersion() + " << " + ChatColor.RED + "Disabled");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + "<< " + "v" + plugin.getVersion() + " << " + ChatColor.RED + "Disabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
     }
 
