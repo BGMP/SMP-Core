@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
 public class SMPCommand {
     @Command(
             aliases = {"add"},
-            desc = "Adds a player to the SMPCommand.",
+            desc = "Adds a player to the SMP.",
             usage = "[player]",
             min = 1,
             max = 1
@@ -30,7 +30,7 @@ public class SMPCommand {
 
     @Command(
             aliases = {"remove"},
-            desc = "Removes a player from the SMPCommand.",
+            desc = "Removes a player from the SMP.",
             usage = "[player]",
             min = 1,
             max = 1
