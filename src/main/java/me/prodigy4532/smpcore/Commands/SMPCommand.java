@@ -22,6 +22,7 @@ public class SMPCommand {
             max = 1
     )
     @CommandPermissions("smp.core.add")
+    @SuppressWarnings("deprecation")
     public static void add(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
         SMP.getWhitelist.addPlayer(sender, offlinePlayer);
@@ -36,6 +37,7 @@ public class SMPCommand {
             max = 1
     )
     @CommandPermissions("smp.core.remove")
+    @SuppressWarnings("deprecation")
     public static void remove(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
         SMP.getWhitelist.removePlayer(sender, offlinePlayer);
