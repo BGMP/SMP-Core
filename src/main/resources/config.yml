@@ -1,8 +1,11 @@
 messages:
-  join: "%player% has joined the server!"
-  leave: "%player% has left the server!"
+  join: "%player% &a&lhas joined the server!"
+  leave: "%player% &c&lhas left the server!"
 whitelist:
   enabled: true
-  message: "&cYou are not whitelisted!"
+  message: "&cSorry but you are not allowed to play here, to apply go to discord (invite.gg/genrealms)."
   white-listed:
     - 2cef6d05-ec9a-44b3-bedc-53359c68ae65
+    - 1c898c77-b0cc-474a-8ce4-b5521f2b18e7
+    - 76b83a94-f0c7-4efd-ac0d-3556cff41a9d
+    - 6e9eda4c-a52f-4a84-a489-3e36a60f4b37
