@@ -41,7 +41,7 @@ public class JoinLeaveEvent implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin2(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        player.setPlayerListName(Objects.requireNonNull(Objects.requireNonNull(SMP.luckPermsApi.getUser(player.getUniqueId())).getName()));
+        player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

@@ -3,6 +3,6 @@ version: ${project.version}
 main: me.prodigy4532.smpcore.SMP
 api-version: 1.14
 authors: [BGMP, Prodigy4532]
-depend: [LuckPerms]
+depend: [LuckPerms, Vault]
 description: SMPCommand Core for Gen Reamls
 website: genrealms.net

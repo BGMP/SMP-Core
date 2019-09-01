@@ -3,17 +3,17 @@ package me.prodigy4532.smpcore;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
 import me.prodigy4532.smpcore.Commands.SMPCommand;
 import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public final class SMP extends JavaPlugin {
     public static SMP getPlugin;
     public static WhitelistObject getWhitelist;
-    public static LuckPermsApi luckPermsApi;
+    private static Chat chat = null;
 
     private PluginDescriptionFile plugin = getDescription();
 
@@ -56,8 +56,8 @@ public final class SMP extends JavaPlugin {
     @Override
     public void onEnable() {
         getPlugin = this;
-        luckPermsApi = LuckPerms.getApi();
         loadConfiguration();
+        setupChat();
 
         getWhitelist = new WhitelistObject(
                 getPlugin.getConfig().getBoolean("whitelist.enabled"),
@@ -81,6 +81,17 @@ public final class SMP extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + "<< " + "v" + plugin.getVersion() + " << " + ChatColor.RED + "Disabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
+    }
+
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        assert rsp != null;
+        chat = rsp.getProvider();
+        return true;
+    }
+
+    public static Chat getChat() {
+        return chat;
     }
 
     private void registerCommands() {
