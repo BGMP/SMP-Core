@@ -34,18 +34,17 @@ public class JoinLeaveEvent implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         WhitelistObject whitelist = SMP.getWhitelist;
-        if (whitelist.isEnabled() && !whitelist.getPlayers().contains(player.getUniqueId().toString())) player.kickPlayer(whitelist.getMessage());
-        event.setJoinMessage(parseJoinMessage(Objects.requireNonNull(messages), player));
+        if (!whitelist.isEnabled() || whitelist.getPlayers().contains(player.getUniqueId().toString())) {
+            player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
+            event.setJoinMessage(parseJoinMessage(Objects.requireNonNull(messages), player));
+        } else {
+            event.setJoinMessage(null);
+            player.kickPlayer(whitelist.getMessage());
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onJoin2(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onLeave(PlayerQuitEvent event) {
+    public void onLeave (PlayerQuitEvent event){
         event.setQuitMessage(parseLeaveMessage(Objects.requireNonNull(messages), event.getPlayer()));
     }
 }
