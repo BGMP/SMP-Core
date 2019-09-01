@@ -8,6 +8,7 @@ public enum ChatConstant {
     RELOADED_CONFIG("Successfully reloaded plugin configuration"),
     ENABLED_WHITELIST("Whitelist is now enabled."),
     DISABLE_WHITELIST("Whitelist is now disabled"),
+    KICKED_NON_WHITELISTED("Everyone not in the whitelist has been kicked!"),
     /* Exception constants */
     NO_PERMISSION("You do not have permission."),
     NUMBER_STRING_EXCEPTION("Expected a number, string received instead."),

@@ -68,6 +68,7 @@ public class SMPCommand {
     public static void kick(final CommandContext args, final CommandSender sender) throws CommandException {
         WhitelistObject whitelist = SMP.getWhitelist;
         whitelist.kick();
+        sender.sendMessage(ChatConstant.KICKED_NON_WHITELISTED.formatAsSuccess());
     }
 
     @Command(
