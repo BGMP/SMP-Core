@@ -2,6 +2,7 @@ package me.prodigy4532.smpcore.EventHandlers;
 
 import me.prodigy4532.smpcore.SMP;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -9,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Objects;
@@ -30,21 +32,25 @@ public class JoinLeaveEvent implements Listener {
     }
 
     // TODO: Fix handleDisconnection() called twice
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        event.setJoinMessage(null);
         WhitelistObject whitelist = SMP.getWhitelist;
-        if (!whitelist.isEnabled() || whitelist.getPlayers().contains(player.getUniqueId().toString())) {
+        Player player = event.getPlayer();
+        if (whitelist.isEnabled() && !whitelist.getPlayers().contains(player.getUniqueId().toString())) {
+            player.kickPlayer(whitelist.getMessage());
+        } else {
             event.setJoinMessage(parseJoinMessage(Objects.requireNonNull(messages), player));
             player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
-        } else {
-            event.setJoinMessage(null);
-            player.kickPlayer(whitelist.getMessage());
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onLeave (PlayerQuitEvent event){
-        event.setQuitMessage(parseLeaveMessage(Objects.requireNonNull(messages), event.getPlayer()));
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onLeave (PlayerQuitEvent event) {
+        WhitelistObject whitelist = SMP.getWhitelist;
+        Player player = event.getPlayer();
+        if (whitelist.isEnabled() && whitelist.getPlayers().contains(player.getUniqueId().toString())) {
+            event.setQuitMessage(parseLeaveMessage(Objects.requireNonNull(messages), event.getPlayer()));
+        } else event.setQuitMessage(null);
     }
 }
