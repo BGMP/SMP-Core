@@ -20,13 +20,13 @@ public class JoinLeaveEvent implements Listener {
     private String parseJoinMessage(ConfigurationSection section, Player player) {
         String raw = section.getString("join");
         assert raw != null;
-        return ChatColor.translateAlternateColorCodes('&', raw.replaceAll("%player%", player.getDisplayName()));
+        return ChatColor.translateAlternateColorCodes('&', raw.replaceAll("%player%", SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
     }
 
     private String parseLeaveMessage(ConfigurationSection section, Player player) {
         String raw = section.getString("leave");
         assert raw != null;
-        return ChatColor.translateAlternateColorCodes('&', raw.replaceAll("%player%", player.getDisplayName()));
+        return ChatColor.translateAlternateColorCodes('&', raw.replaceAll("%player%", SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
     }
 
     // TODO: Fix handleDisconnection() called twice
@@ -35,8 +35,8 @@ public class JoinLeaveEvent implements Listener {
         Player player = event.getPlayer();
         WhitelistObject whitelist = SMP.getWhitelist;
         if (!whitelist.isEnabled() || whitelist.getPlayers().contains(player.getUniqueId().toString())) {
-            player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
             event.setJoinMessage(parseJoinMessage(Objects.requireNonNull(messages), player));
+            player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', SMP.getChat().getPlayerPrefix(player) + player.getDisplayName()));
         } else {
             event.setJoinMessage(null);
             player.kickPlayer(whitelist.getMessage());
