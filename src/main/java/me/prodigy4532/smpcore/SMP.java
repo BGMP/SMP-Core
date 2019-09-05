@@ -22,11 +22,9 @@ public final class SMP extends JavaPlugin {
     public static SMP getPlugin;
     public static WhitelistObject getWhitelist;
     private static Chat chat = null;
-
-    private PluginDescriptionFile plugin = getDescription();
-
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
+    private PluginDescriptionFile plugin = getDescription();
 
     @SuppressWarnings("unchecked")
     @Override
@@ -55,25 +53,25 @@ public final class SMP extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getPlugin = this;
         loadConfiguration();
-        setupChat();
-
+        getPlugin = this;
         getWhitelist = new WhitelistObject(
                 getPlugin.getConfig().getBoolean("whitelist.enabled"),
                 ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getPlugin.getConfig().getString("whitelist.message"))),
                 getPlugin.getConfig().getStringList("whitelist.white-listed")
-                );
-
+        );
         this.commands = new BukkitCommandsManager();
         this.commandRegistry = new CommandsManagerRegistration(this, this.commands);
+
+        setupChat();
+        if (!setupChat()) Bukkit.shutdown();
+
+        registerEvents();
+        registerCommands();
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + ">> " + "v" + plugin.getVersion() + " >> " + ChatColor.GREEN + "Enabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-
-        registerEvents();
-        registerCommands();
     }
 
     @Override
@@ -81,17 +79,6 @@ public final class SMP extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + "<< " + "v" + plugin.getVersion() + " << " + ChatColor.RED + "Disabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-    }
-
-    private boolean setupChat() {
-        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        assert rsp != null;
-        chat = rsp.getProvider();
-        return true;
-    }
-
-    public static Chat getChat() {
-        return chat;
     }
 
     private void registerCommands() {
@@ -106,5 +93,16 @@ public final class SMP extends JavaPlugin {
     private void loadConfiguration() {
         getConfig().options().copyDefaults(true);
         saveConfig();
+    }
+
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> registeredServiceProvider = getServer().getServicesManager().getRegistration(Chat.class);
+        assert registeredServiceProvider != null;
+        chat = registeredServiceProvider.getProvider();
+        return true;
+    }
+
+    public static Chat getChat() {
+        return chat;
     }
 }
