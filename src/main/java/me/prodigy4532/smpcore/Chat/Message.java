@@ -29,7 +29,7 @@ public class Message {
     }
 
     public void broadcast() {
-        Bukkit.broadcastMessage(text.getColoredText());
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.getPlugin.getConfig().getString("chat.broadcast"))) + text.getColoredText());
     }
 
     private String buildColoredMessage() {

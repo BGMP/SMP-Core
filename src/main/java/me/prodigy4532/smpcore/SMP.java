@@ -4,6 +4,7 @@ import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import me.prodigy4532.smpcore.Chat.ChannelRegistry;
+import me.prodigy4532.smpcore.Commands.BroadcastCommand;
 import me.prodigy4532.smpcore.Commands.ChatCommand;
 import me.prodigy4532.smpcore.Commands.SMPCommand;
 import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
@@ -91,6 +92,7 @@ public final class SMP extends JavaPlugin {
         commandRegistry.register(SMPCommand.class);
         commandRegistry.register(SMPCommand.SMPParentCommand.class);
         commandRegistry.register(ChatCommand.class);
+        commandRegistry.register(BroadcastCommand.class);
     }
 
     private void registerEvents() {

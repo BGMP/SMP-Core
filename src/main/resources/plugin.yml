@@ -16,3 +16,6 @@ permissions:
   smp.chat.color:
     description: Chat color permission.
     default: op
+  smp.core.broadcast:
+    description: Allows access to broadcast messages.
+    default: op
