@@ -1,6 +1,8 @@
 messages:
   join: "%player% &a&lhas joined the server!"
   leave: "%player% &c&lhas left the server!"
+chat:
+  format: "&r%channel_prefix%&r<%player%&r>: %msg%"
 whitelist:
   enabled: true
   message: "&cSorry but you are not allowed to play here, to apply go to discord (invite.gg/genrealms)."

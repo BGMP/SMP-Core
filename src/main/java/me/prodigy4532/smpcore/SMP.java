@@ -3,8 +3,11 @@ package me.prodigy4532.smpcore;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
+import me.prodigy4532.smpcore.Chat.ChannelRegistry;
+import me.prodigy4532.smpcore.Commands.ChatCommand;
 import me.prodigy4532.smpcore.Commands.SMPCommand;
 import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
+import me.prodigy4532.smpcore.EventHandlers.PlayerChatEvent;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
 import net.milkbowl.vault.chat.Chat;
@@ -16,12 +19,14 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public final class SMP extends JavaPlugin {
     public static SMP getPlugin;
     public static WhitelistObject getWhitelist;
     private static Chat chat = null;
+    public static ChannelRegistry getChannelRegistry;
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
     private PluginDescriptionFile plugin = getDescription();
@@ -60,6 +65,7 @@ public final class SMP extends JavaPlugin {
                 ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getPlugin.getConfig().getString("whitelist.message"))),
                 getPlugin.getConfig().getStringList("whitelist.white-listed")
         );
+        getChannelRegistry = new ChannelRegistry(new HashMap<>());
         this.commands = new BukkitCommandsManager();
         this.commandRegistry = new CommandsManagerRegistration(this, this.commands);
 
@@ -84,10 +90,12 @@ public final class SMP extends JavaPlugin {
     private void registerCommands() {
         commandRegistry.register(SMPCommand.class);
         commandRegistry.register(SMPCommand.SMPParentCommand.class);
+        commandRegistry.register(ChatCommand.class);
     }
 
     private void registerEvents() {
         this.getServer().getPluginManager().registerEvents(new JoinLeaveEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
     }
 
     private void loadConfiguration() {
