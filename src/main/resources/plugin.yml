@@ -6,3 +6,13 @@ authors: [BGMP, Prodigy4532]
 depend: [LuckPerms, Vault]
 description: SMPCommand Core for Gen Reamls
 website: genrealms.net
+permissions:
+  smp.chat.admin:
+    description: Allows access to the admin chat.
+    default: op
+  smp.chat.global:
+    description: Allows access to chat globally.
+    default: true
+  smp.chat.color:
+    description: Chat color permission.
+    default: op
