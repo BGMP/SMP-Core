@@ -52,5 +52,6 @@ public class JoinLeaveEvent implements Listener {
             event.setQuitMessage(parseLeaveMessage(Objects.requireNonNull(messages), event.getPlayer()));
         } else event.setQuitMessage(null);
         SMP.getChannelRegistry.destroyPlayerRegistry(player);
+        SMP.getReplyQueue.removePair(player);
     }
 }

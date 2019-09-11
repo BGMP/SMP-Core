@@ -12,9 +12,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ChatCommand {
-    static String buildMessageFromCommandArgs(String[] args) {
+    static String buildMessageFromCommandArgs(String[] args, int beginAtArgument) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
+        for (int i = beginAtArgument; i < args.length; i++) {
             builder.append(args[i]).append(" ");
         }
         return builder.toString();
@@ -37,7 +37,7 @@ public class ChatCommand {
                 }
             } else {
                 String[] arguments = args.getOriginalArgs();
-                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments));
+                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
                 Message msg = new Message(text, Channel.ADMIN, player);
                 msg.send();
             }
@@ -63,7 +63,7 @@ public class ChatCommand {
                 }
             } else {
                 String[] arguments = args.getOriginalArgs();
-                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments));
+                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
                 Message msg = new Message(text, Channel.GLOBAL, player);
                 msg.send();
             }

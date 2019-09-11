@@ -4,9 +4,8 @@ import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import me.prodigy4532.smpcore.Chat.ChannelRegistry;
-import me.prodigy4532.smpcore.Commands.BroadcastCommand;
-import me.prodigy4532.smpcore.Commands.ChatCommand;
-import me.prodigy4532.smpcore.Commands.SMPCommand;
+import me.prodigy4532.smpcore.Chat.PrivateMessage;
+import me.prodigy4532.smpcore.Commands.*;
 import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
 import me.prodigy4532.smpcore.EventHandlers.PlayerChatEvent;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
@@ -28,6 +27,7 @@ public final class SMP extends JavaPlugin {
     public static WhitelistObject getWhitelist;
     private static Chat chat = null;
     public static ChannelRegistry getChannelRegistry;
+    public static PrivateMessage.ReplyQueue getReplyQueue;
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
     private PluginDescriptionFile plugin = getDescription();
@@ -61,12 +61,16 @@ public final class SMP extends JavaPlugin {
     public void onEnable() {
         loadConfiguration();
         getPlugin = this;
+        
         getWhitelist = new WhitelistObject(
                 getPlugin.getConfig().getBoolean("whitelist.enabled"),
                 ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getPlugin.getConfig().getString("whitelist.message"))),
                 getPlugin.getConfig().getStringList("whitelist.white-listed")
         );
+
         getChannelRegistry = new ChannelRegistry(new HashMap<>());
+        getReplyQueue = new PrivateMessage.ReplyQueue(new HashMap<>());
+
         this.commands = new BukkitCommandsManager();
         this.commandRegistry = new CommandsManagerRegistration(this, this.commands);
 
@@ -93,6 +97,8 @@ public final class SMP extends JavaPlugin {
         commandRegistry.register(SMPCommand.SMPParentCommand.class);
         commandRegistry.register(ChatCommand.class);
         commandRegistry.register(BroadcastCommand.class);
+        commandRegistry.register(PrivateMessageCommand.class);
+        commandRegistry.register(ReplyCommand.class);
     }
 
     private void registerEvents() {

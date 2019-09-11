@@ -4,6 +4,14 @@ messages:
 chat:
   format: "&r%channel_prefix%&r<%player%&r>: %msg%"
   broadcast: "&c[Broadcast]"
+  pm:
+    prefix: "&f[&6PM&f] "
+    from: "%pm_prefix% From: %player%: %msg%"
+    to: "%pm_prefix% To: %player%: %msg%"
+    sound:
+      effect: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      v: 1
+      v1: 1
 whitelist:
   enabled: true
   message: "&cSorry but you are not allowed to play here, to apply go to discord (invite.gg/genrealms)."

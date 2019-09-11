@@ -19,7 +19,9 @@ public enum ChatConstant {
     NOT_WHITELISTED("Player is not whitelisted."),
     NO_CONSOLE("You must be a player to execute this command."),
     CHANNEL_ALREADY_ADMIN("Chat mode already set to admin."),
-    CHANNEL_ALREADY_GLOBAL("Chat mode already set to global.");
+    CHANNEL_ALREADY_GLOBAL("Chat mode already set to global."),
+    PLAYER_IS_OFFLINE("Player is currently offline."),
+    NOBODY_TO_REPLY_TO("You have nobody to reply to.");
 
     private String message;
 

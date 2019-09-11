@@ -22,7 +22,7 @@ public class BroadcastCommand {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             String[] arguments = args.getOriginalArgs();
-            Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments));
+            Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
             Message msg = new Message(text, Channel.GLOBAL, player);
             msg.broadcast();
         } else {
