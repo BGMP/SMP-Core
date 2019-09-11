@@ -85,7 +85,7 @@ public class SMPCommand {
     public static class SMPParentCommand {
         @Command(
                 aliases = {"smp"},
-                desc = "SMPCommand node command.",
+                desc = "SMP-Core node command.",
                 min = 1
         )
         @CommandPermissions("smp.core")
