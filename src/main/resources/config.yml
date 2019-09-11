@@ -5,11 +5,11 @@ chat:
   format: "&r%channel_prefix%&r<%player%&r>: %msg%"
   broadcast: "&c[Broadcast]"
   pm:
-    prefix: "&f[&6PM&f] "
-    from: "%pm_prefix% From: %player%: %msg%"
-    to: "%pm_prefix% To: %player%: %msg%"
+    prefix: '&f[&6PM&f]'
+    from: '%pm_prefix% &7From %player%&7:&r %msg%'
+    to: '%pm_prefix% &7To %player%&7:&r %msg%'
     sound:
-      effect: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      effect: ENTITY_ITEM_PICKUP
       v: 1
       v1: 1
 whitelist:
