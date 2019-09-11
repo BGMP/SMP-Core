@@ -6,6 +6,7 @@ import com.sk89q.minecraft.util.commands.*;
 import me.prodigy4532.smpcore.Chat.ChannelRegistry;
 import me.prodigy4532.smpcore.Chat.PrivateMessage;
 import me.prodigy4532.smpcore.Commands.*;
+import me.prodigy4532.smpcore.EventHandlers.BockEvents;
 import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
 import me.prodigy4532.smpcore.EventHandlers.PlayerChatEvent;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
@@ -104,6 +105,7 @@ public final class SMP extends JavaPlugin {
     private void registerEvents() {
         this.getServer().getPluginManager().registerEvents(new JoinLeaveEvent(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new BockEvents(), this);
     }
 
     private void loadConfiguration() {
