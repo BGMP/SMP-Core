@@ -55,7 +55,7 @@ public class PrivateMessage {
             receiver.sendMessage(parsePMFromFormat().replaceAll("%msg%", text.getColoredText()));
         } else {
             sender.sendMessage(parsePMToFormat().replaceAll("%msg%", text.getText()));
-            sender.sendMessage(parsePMFromFormat().replaceAll("%msg%", text.getText()));
+            receiver.sendMessage(parsePMFromFormat().replaceAll("%msg%", text.getText()));
         }
         receiver.playSound(receiver.getLocation(), pmSound, v, v1);
     }
