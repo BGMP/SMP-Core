@@ -15,7 +15,9 @@ import static me.prodigy4532.smpcore.Commands.ChatCommand.buildMessageFromComman
 public class BroadcastCommand {
     @Command(
             aliases = {"broadcast", "br"},
-            desc = "Broadcasts a message to all players."
+            desc = "Broadcasts a message to all players.",
+            usage = "[msg]",
+            min = 1
     )
     @CommandPermissions("smp.core.broadcast")
     public static void broadcast(final CommandContext args, final CommandSender sender) throws CommandException {
