@@ -43,7 +43,7 @@ public class Message {
     private String parseChatFormat() {
         return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.getPlugin.getConfig().getString("chat.format"))
                 .replaceAll("%channel_prefix%", channel.getPrefix())
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName()
+                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName() + SMP.getChat().getPlayerSuffix(sender)
                 )
         );
     }

@@ -63,14 +63,14 @@ public class PrivateMessage {
     private String parsePMToFormat() {
         return ChatColor.translateAlternateColorCodes('&', pmToFormat
                 .replaceAll("%pm_prefix%", prefix)
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(receiver) + receiver.getDisplayName())
+                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(receiver) + receiver.getDisplayName()) + SMP.getChat().getPlayerSuffix(sender)
         );
     }
 
     private String parsePMFromFormat() {
         return ChatColor.translateAlternateColorCodes('&', pmFromFormat
                 .replaceAll("%pm_prefix%", prefix)
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName())
+                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName()) + SMP.getChat().getPlayerSuffix(sender)
         );
     }
 
