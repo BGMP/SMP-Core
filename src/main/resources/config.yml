@@ -3,7 +3,7 @@ messages:
   leave: "%player% &c&lhas left the server!"
 chat:
   format: "&r%channel_prefix%&r<%player%&r>: %msg%"
-  broadcast: "&c[Broadcast]"
+  broadcast: "&c[Broadcast] "
   pm:
     prefix: '&f[&6PM&f]'
     from: '%pm_prefix% &7From %player%&7:&r %msg%'
