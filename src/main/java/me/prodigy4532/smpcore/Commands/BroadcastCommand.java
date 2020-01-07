@@ -10,8 +10,6 @@ import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static me.prodigy4532.smpcore.Commands.ChatCommand.buildMessageFromCommandArgs;
-
 public class BroadcastCommand {
     @Command(
             aliases = {"broadcast", "br"},
@@ -23,9 +21,12 @@ public class BroadcastCommand {
     public static void broadcast(final CommandContext args, final CommandSender sender) throws CommandException {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+
             String[] arguments = args.getOriginalArgs();
-            Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
+
+            Message.Text text = new Message.Text(arguments, 1);
             Message msg = new Message(text, Channel.GLOBAL, player);
+
             msg.broadcast();
         } else {
             sender.sendMessage(ChatConstant.NO_CONSOLE.formatAsException());

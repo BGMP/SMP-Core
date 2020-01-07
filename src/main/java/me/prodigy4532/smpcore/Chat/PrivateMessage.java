@@ -12,12 +12,12 @@ public class PrivateMessage {
     private Player sender;
     private Player receiver;
     private Message.Text text;
-    private Sound pmSound = Sound.valueOf(SMP.getPlugin.getConfig().getString("chat.pm.sound.effect"));
-    private int v = SMP.getPlugin.getConfig().getInt("chat.pm.sound.v");
-    private int v1 = SMP.getPlugin.getConfig().getInt("chat.pm.sound.v1");
-    private String prefix = SMP.getPlugin.getConfig().getString("chat.pm.prefix");
-    private String pmToFormat = SMP.getPlugin.getConfig().getString("chat.pm.to");
-    private String pmFromFormat = SMP.getPlugin.getConfig().getString("chat.pm.from");
+    private Sound pmSound = Sound.valueOf(SMP.get().getConfig().getString("chat.pm.sound.effect"));
+    private int v = SMP.get().getConfig().getInt("chat.pm.sound.v");
+    private int v1 = SMP.get().getConfig().getInt("chat.pm.sound.v1");
+    private String prefix = SMP.get().getConfig().getString("chat.pm.prefix");
+    private String pmToFormat = SMP.get().getConfig().getString("chat.pm.to");
+    private String pmFromFormat = SMP.get().getConfig().getString("chat.pm.from");
 
     public PrivateMessage(Player sender, Player receiver, Message.Text text) {
         this.sender = sender;
@@ -63,14 +63,14 @@ public class PrivateMessage {
     private String parsePMToFormat() {
         return ChatColor.translateAlternateColorCodes('&', pmToFormat
                 .replaceAll("%pm_prefix%", prefix)
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(receiver) + receiver.getDisplayName() + SMP.getChat().getPlayerSuffix(sender))
+                .replaceAll("%player%", SMP.get().getChat().getPlayerPrefix(receiver) + receiver.getDisplayName() + SMP.get().getChat().getPlayerSuffix(sender))
         );
     }
 
     private String parsePMFromFormat() {
         return ChatColor.translateAlternateColorCodes('&', pmFromFormat
                 .replaceAll("%pm_prefix%", prefix)
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName() + SMP.getChat().getPlayerSuffix(sender))
+                .replaceAll("%player%", SMP.get().getChat().getPlayerPrefix(sender) + sender.getDisplayName() + SMP.get().getChat().getPlayerSuffix(sender))
         );
     }
 

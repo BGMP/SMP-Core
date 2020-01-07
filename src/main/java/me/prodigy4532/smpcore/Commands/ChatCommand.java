@@ -12,13 +12,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ChatCommand {
-    static String buildMessageFromCommandArgs(String[] args, int beginAtArgument) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = beginAtArgument; i < args.length; i++) {
-            builder.append(args[i]).append(" ");
-        }
-        return builder.toString();
-    }
 
     @Command(
             aliases = {"admin", "a"},
@@ -29,15 +22,15 @@ public class ChatCommand {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.argsLength() == 0) {
-                if (SMP.getChannelRegistry.getPlayerChannel(player) != Channel.ADMIN) {
-                    SMP.getChannelRegistry.setPlayerChannel(player, Channel.ADMIN);
+                if (SMP.get().getChannelRegistry().getPlayerChannel(player) != Channel.ADMIN) {
+                    SMP.get().getChannelRegistry().setPlayerChannel(player, Channel.ADMIN);
                     player.sendMessage(ChatConstant.CHANNEL_SET_ADMIN.formatAsSuccess());
                 } else {
                     player.sendMessage(ChatConstant.CHANNEL_ALREADY_ADMIN.formatAsException());
                 }
             } else {
                 String[] arguments = args.getOriginalArgs();
-                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
+                Message.Text text = new Message.Text(arguments, 1);
                 Message msg = new Message(text, Channel.ADMIN, player);
                 msg.send();
             }
@@ -53,18 +46,20 @@ public class ChatCommand {
     @CommandPermissions("smp.core.global")
     public static void global(final CommandContext args, final CommandSender sender) throws CommandException {
         if (sender instanceof Player) {
+
             Player player = (Player) sender;
             if (args.argsLength() == 0) {
-                if (SMP.getChannelRegistry.getPlayerChannel(player) != Channel.GLOBAL) {
-                    SMP.getChannelRegistry.setPlayerChannel(player, Channel.GLOBAL);
+                if (SMP.get().getChannelRegistry().getPlayerChannel(player) != Channel.GLOBAL) {
+                    SMP.get().getChannelRegistry().setPlayerChannel(player, Channel.GLOBAL);
                     player.sendMessage(ChatConstant.CHANNEL_SET_GLOBAL.formatAsSuccess());
                 } else {
                     player.sendMessage(ChatConstant.CHANNEL_ALREADY_GLOBAL.formatAsException());
                 }
             } else {
                 String[] arguments = args.getOriginalArgs();
-                Message.Text text = new Message.Text(buildMessageFromCommandArgs(arguments, 1));
+                Message.Text text = new Message.Text(arguments, 1);
                 Message msg = new Message(text, Channel.GLOBAL, player);
+
                 msg.send();
             }
         } else {

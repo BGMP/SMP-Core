@@ -6,8 +6,8 @@ import com.sk89q.minecraft.util.commands.*;
 import me.prodigy4532.smpcore.Chat.ChannelRegistry;
 import me.prodigy4532.smpcore.Chat.PrivateMessage;
 import me.prodigy4532.smpcore.Commands.*;
-import me.prodigy4532.smpcore.EventHandlers.JoinLeaveEvent;
-import me.prodigy4532.smpcore.EventHandlers.PlayerChatEvent;
+import me.prodigy4532.smpcore.Listeners.JoinLeaveEvent;
+import me.prodigy4532.smpcore.Listeners.PlayerChatEvent;
 import me.prodigy4532.smpcore.Utils.ChatConstant;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
 import net.milkbowl.vault.chat.Chat;
@@ -15,26 +15,50 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Objects;
 
 public final class SMP extends JavaPlugin {
-    public static SMP getPlugin;
-    public static WhitelistObject getWhitelist;
+    public static SMP smp;
+    private static WhitelistObject whitelist;
+
     private static Chat chat = null;
-    public static ChannelRegistry getChannelRegistry;
-    public static PrivateMessage.ReplyQueue getReplyQueue;
+    private static ChannelRegistry channelRegistry;
+    private static PrivateMessage.ReplyQueue replyQueue;
+
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
-    private PluginDescriptionFile plugin = getDescription();
+
+    public static SMP get() {
+        return smp;
+    }
+
+    public WhitelistObject getWhitelist() {
+        return  whitelist;
+    }
+
+    public ChannelRegistry getChannelRegistry() {
+        return channelRegistry;
+    }
+
+    public PrivateMessage.ReplyQueue getReplyQueue() {
+        return replyQueue;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, @NotNull String[] args) {
         try {
             this.commands.execute(command.getName(), args, sender, sender);
         } catch (CommandPermissionsException exception) {
@@ -60,16 +84,17 @@ public final class SMP extends JavaPlugin {
     @Override
     public void onEnable() {
         loadConfiguration();
-        getPlugin = this;
+
+        smp = this;
         
-        getWhitelist = new WhitelistObject(
-                getPlugin.getConfig().getBoolean("whitelist.enabled"),
-                ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getPlugin.getConfig().getString("whitelist.message"))),
-                getPlugin.getConfig().getStringList("whitelist.white-listed")
+        whitelist = new WhitelistObject(
+                getConfig().getBoolean("whitelist.enabled"),
+                ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString("whitelist.message"))),
+                getConfig().getStringList("whitelist.white-listed")
         );
 
-        getChannelRegistry = new ChannelRegistry(new HashMap<>());
-        getReplyQueue = new PrivateMessage.ReplyQueue(new HashMap<>());
+        channelRegistry = new ChannelRegistry(new HashMap<>());
+        replyQueue = new PrivateMessage.ReplyQueue(new HashMap<>());
 
         this.commands = new BukkitCommandsManager();
         this.commandRegistry = new CommandsManagerRegistration(this, this.commands);
@@ -81,14 +106,14 @@ public final class SMP extends JavaPlugin {
         registerCommands();
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + ">> " + "v" + plugin.getVersion() + " >> " + ChatColor.GREEN + "Enabled");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + ">> " + "v" + getDescription().getVersion() + " >> " + ChatColor.GREEN + "Enabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
     }
 
     @Override
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + "<< " + "v" + plugin.getVersion() + " << " + ChatColor.RED + "Disabled");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "[!] " + ChatColor.YELLOW + "SMP-Core " + ChatColor.WHITE + "<< " + "v" + getDescription().getVersion() + " << " + ChatColor.RED + "Disabled");
         Bukkit.getConsoleSender().sendMessage(ChatColor.WHITE + "-------------------------------");
     }
 
@@ -102,8 +127,10 @@ public final class SMP extends JavaPlugin {
     }
 
     private void registerEvents() {
-        this.getServer().getPluginManager().registerEvents(new JoinLeaveEvent(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+
+        pluginManager.registerEvents(new JoinLeaveEvent(), this);
+        pluginManager.registerEvents(new PlayerChatEvent(), this);
     }
 
     private void loadConfiguration() {
@@ -116,9 +143,5 @@ public final class SMP extends JavaPlugin {
         assert registeredServiceProvider != null;
         chat = registeredServiceProvider.getProvider();
         return true;
-    }
-
-    public static Chat getChat() {
-        return chat;
     }
 }

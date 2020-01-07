@@ -1,4 +1,4 @@
-package me.prodigy4532.smpcore.EventHandlers;
+package me.prodigy4532.smpcore.Listeners;
 
 import me.prodigy4532.smpcore.Chat.Channel;
 import me.prodigy4532.smpcore.Chat.Message;
@@ -12,7 +12,7 @@ public class PlayerChatEvent implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         event.setCancelled(true);
         Message.Text messageText = new Message.Text(event.getMessage());
-        Channel channel = SMP.getChannelRegistry.getPlayerChannel(event.getPlayer());
+        Channel channel = SMP.get().getChannelRegistry().getPlayerChannel(event.getPlayer());
         Message message = new Message(messageText, channel, event.getPlayer());
         message.send();
     }

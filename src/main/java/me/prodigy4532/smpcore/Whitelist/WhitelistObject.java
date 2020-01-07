@@ -43,10 +43,12 @@ public class WhitelistObject {
     public void addPlayer(CommandSender sender, OfflinePlayer player) {
         if (!players.contains(player.getUniqueId().toString())) {
             players.add(player.getUniqueId().toString());
-            List<String> newWhitelisted = SMP.getPlugin.getConfig().getStringList("whitelist.white-listed");
+            List<String> newWhitelisted = SMP.get().getConfig().getStringList("whitelist.white-listed");
             newWhitelisted.add(player.getUniqueId().toString());
-            SMP.getPlugin.getConfig().set("whitelist.white-listed", newWhitelisted);
-            SMP.getPlugin.saveConfig();
+
+            SMP.get().getConfig().set("whitelist.white-listed", newWhitelisted);
+            SMP.get().saveConfig();
+
             sender.sendMessage(ChatColor.GREEN + "Added " + ChatColor.DARK_AQUA + player.getName() + ChatColor.GREEN + " to the whitelist!");
         } else sender.sendMessage(ChatConstant.ALREADY_IN_WHITELIST.formatAsException());
     }
@@ -54,24 +56,26 @@ public class WhitelistObject {
     public void removePlayer(CommandSender sender, OfflinePlayer player) {
         if (players.contains(player.getUniqueId().toString())) {
             players.remove(player.getUniqueId().toString());
-            List<String> newWhitelisted = SMP.getPlugin.getConfig().getStringList("whitelist.white-listed");
+            List<String> newWhitelisted = SMP.get().getConfig().getStringList("whitelist.white-listed");
             newWhitelisted.remove(player.getUniqueId().toString());
-            SMP.getPlugin.getConfig().set("whitelist.white-listed", newWhitelisted);
-            SMP.getPlugin.saveConfig();
+
+            SMP.get().getConfig().set("whitelist.white-listed", newWhitelisted);
+            SMP.get().saveConfig();
+
             sender.sendMessage(ChatColor.RED + "Removed " + ChatColor.DARK_AQUA + player.getName() + ChatColor.RED + " from the whitelist!");
         } else sender.sendMessage(ChatConstant.NOT_WHITELISTED.formatAsException());
     }
 
     public void enable() {
         isEnabled = true;
-        SMP.getPlugin.getConfig().set("whitelist.enabled", true);
-        SMP.getPlugin.saveConfig();
+        SMP.get().getConfig().set("whitelist.enabled", true);
+        SMP.get().saveConfig();
     }
 
     public void disable() {
         isEnabled = false;
-        SMP.getPlugin.getConfig().set("whitelist.enabled", false);
-        SMP.getPlugin.saveConfig();
+        SMP.get().getConfig().set("whitelist.enabled", false);
+        SMP.get().saveConfig();
     }
 
     public void kick() {

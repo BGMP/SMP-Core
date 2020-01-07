@@ -29,7 +29,7 @@ public class Message {
     }
 
     public void broadcast() {
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.getPlugin.getConfig().getString("chat.broadcast"))) + text.getColoredText());
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.get().getConfig().getString("chat.broadcast"))) + text.getColoredText());
     }
 
     private String buildColoredMessage() {
@@ -41,9 +41,9 @@ public class Message {
     }
 
     private String parseChatFormat() {
-        return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.getPlugin.getConfig().getString("chat.format"))
+        return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(SMP.get().getConfig().getString("chat.format"))
                 .replaceAll("%channel_prefix%", channel.getPrefix())
-                .replaceAll("%player%", SMP.getChat().getPlayerPrefix(sender) + sender.getDisplayName() + SMP.getChat().getPlayerSuffix(sender)
+                .replaceAll("%player%", SMP.get().getChat().getPlayerPrefix(sender) + sender.getDisplayName() + SMP.get().getChat().getPlayerSuffix(sender)
                 )
         );
     }
@@ -54,6 +54,16 @@ public class Message {
 
         public Text(String text) {
             this.text = text;
+        }
+
+        public Text (String[] text, int beginsAt) {
+            StringBuilder message = new StringBuilder();
+
+            for (int i = beginsAt; i < text.length; i++) {
+                message.append(text[i]).append(" ");
+            }
+
+            this.text = message.toString();
         }
 
         String getText() {

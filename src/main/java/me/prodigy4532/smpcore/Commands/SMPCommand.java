@@ -9,6 +9,7 @@ import me.prodigy4532.smpcore.Utils.ChatConstant;
 import me.prodigy4532.smpcore.Whitelist.WhitelistObject;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 
@@ -24,7 +25,7 @@ public class SMPCommand {
     @SuppressWarnings("deprecation")
     public static void add(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
-        SMP.getWhitelist.addPlayer(sender, offlinePlayer);
+        SMP.get().getWhitelist().addPlayer(sender, offlinePlayer);
     }
 
     @Command(
@@ -38,7 +39,7 @@ public class SMPCommand {
     @SuppressWarnings("deprecation")
     public static void remove(final CommandContext args, final CommandSender sender) throws CommandException {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getString(0));
-        SMP.getWhitelist.removePlayer(sender, offlinePlayer);
+        SMP.get().getWhitelist().removePlayer(sender, offlinePlayer);
     }
 
     @Command(
@@ -48,7 +49,7 @@ public class SMPCommand {
     )
     @CommandPermissions("smp.core.toggle")
     public static void toggle(final CommandContext args, final CommandSender sender) throws CommandException {
-        WhitelistObject whitelist = SMP.getWhitelist;
+        WhitelistObject whitelist = SMP.get().getWhitelist();
         if (whitelist.isEnabled()) {
             whitelist.disable();
             sender.sendMessage(ChatConstant.DISABLE_WHITELIST.formatAsSuccess());
@@ -66,7 +67,7 @@ public class SMPCommand {
     )
     @CommandPermissions("smp.core.kick")
     public static void kick(final CommandContext args, final CommandSender sender) throws CommandException {
-        WhitelistObject whitelist = SMP.getWhitelist;
+        WhitelistObject whitelist = SMP.get().getWhitelist();
         whitelist.kick();
         sender.sendMessage(ChatConstant.KICKED_NON_WHITELISTED.formatAsSuccess());
     }
@@ -78,7 +79,7 @@ public class SMPCommand {
     )
     @CommandPermissions("smp.core.reload")
     public static void reload(final CommandContext args, final CommandSender sender) throws CommandException {
-        SMP.getPlugin.reloadConfig();
+        SMP.get().reloadConfig();
         sender.sendMessage(ChatConstant.RELOADED_CONFIG.formatAsSuccess());
     }
 
